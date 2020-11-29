@@ -1,4 +1,0 @@
-# Place the URLs of the main page of the manga from Manganelo here.
-# You can write comments by preceding the line with #.
-https://manganelo.com/manga/karakai_jouzu_no_takagisan
-https://manganelo.com/manga/karakai_jouzu_no_moto_takagisan
