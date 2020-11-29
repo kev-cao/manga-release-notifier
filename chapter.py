@@ -1,6 +1,4 @@
-import requests
 import re
-from bs4 import BeautifulSoup
 
 class Chapter:
     """Represents the latest chapter of a manga in a soup.
@@ -31,7 +29,7 @@ class Chapter:
             pattern = r'chapter\s*(\d*):*.*'
             match = re.search(pattern, chapter_label, re.IGNORECASE)
             self.title = match.group(0) if match else ''
-            self.num = int(match.group(0)) if match else -1
+            self.num = int(match.group(1)) if match else -1
         except (AttributeError, IndexError):
             self.title = ''
             self.num = -1
