@@ -1,3 +1,4 @@
+import logger
 import json
 
 def load_config():

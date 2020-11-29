@@ -9,3 +9,7 @@
 pyvenv.cfg
 .venv
 pip-selfcheck.json
+
+# secret files
+config.json
+save.json

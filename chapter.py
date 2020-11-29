@@ -15,8 +15,8 @@ class Chapter:
         try:
             story_info = self.soup.select_one('.panel-story-info')
             self.manga_title = story_info.h1.get_text() 
-        except AttributeError:
-            self.manga_title = ''
+        except AttributeError as e:
+            raise ValueError('Could not retrieve manga title.')
 
     def __init_chapter_details(self):
         """Gets the details of the latest chapter from the soup."""
@@ -30,9 +30,8 @@ class Chapter:
             match = re.search(pattern, chapter_label, re.IGNORECASE)
             self.title = match.group(0) if match else ''
             self.num = int(match.group(1)) if match else -1
-        except (AttributeError, IndexError):
-            self.title = ''
-            self.num = -1
+        except (AttributeError, IndexError) as e:
+            raise ValueError('Could not retrieve chapter details.')
 
     def __str__(self):
         """Displays Manga title and Chapter title."""
