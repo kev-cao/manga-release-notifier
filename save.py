@@ -7,7 +7,7 @@ def load_save():
         with open('save.json', 'r') as f:
             return json.load(f)
     except FileNotFoundError:
-        raise FileNotFoundError("Make sure to run init.py before starting the scraper.")
+        return {}
 
 def update_save(d):
     """Saves the given dictionary to the save file."""

@@ -13,7 +13,7 @@ handler = RotatingFileHandler(
         backupCount=1)
 
 handler.setLevel(logging.INFO)
-log_formatter = logging.Formatter('$(asctime)s - %(levelname)s: %(message)s')
+log_formatter = logging.Formatter('%(asctime)s - %(levelname)s: %(message)s')
 handler.setFormatter(log_formatter)
 
 

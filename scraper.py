@@ -16,8 +16,8 @@ logger.info("Running scraper.")
 new_release = False
 for url in urls:
     # Convert HTML to soup.
-    r = requests.get(url)
-    soup = BeautifulSoup(r.content, 'html.parser')
+    res = requests.get(url)
+    soup = BeautifulSoup(res.content, 'html.parser')
 
     try: 
         # Get chapter information from soup.

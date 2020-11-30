@@ -7,7 +7,7 @@ def load_config():
         with open('config.json', 'r') as f:
             return json.load(f)
     except FileNotFoundError:
-        raise FileNotFoundError("Make sure to run init.py before running the scraper.")
+        raise FileNotFoundError("Make sure to run setup.py before running the scraper.")
 
 def save_config(config):
     """Updates the configuration file with the given config."""
