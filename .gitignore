@@ -14,3 +14,6 @@ pip-selfcheck.json
 # secret files
 config.json
 save.json
+
+# logs
+log.out
