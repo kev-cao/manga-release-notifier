@@ -13,7 +13,7 @@ save = load_save()
 
 logger.info("Running scraper.")
 
-new_release = False
+need_to_save = False
 for url in urls:
     # Convert HTML to soup.
     res = requests.get(url)
@@ -27,13 +27,15 @@ for url in urls:
         manga = ch.manga_title.lower()
         if manga not in save or save[manga] < ch.num:
             try:
-                send_push(ch)
+                if manga in save:
+                    send_push(ch)
+
                 save[manga] = ch.num
-                new_release = True
+                need_to_save = True
             except ConnectionError as e:
                 logger.error(e)
     except ValueError as e:
         logger.error(e)
 
-if new_release:
+if need_to_save:
     update_save(save)
