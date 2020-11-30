@@ -122,9 +122,10 @@ menu = {
         2: {'text': "Add Manga", 'func': add_manga},
         3: {'text': "Remove Manga", 'func': remove_manga},
         4: {'text': "Change Pushbullet Access Token", 'func': get_access_token},
-        5: {'text': "Save"},
-        6: {'text': "Save and Quit"},
-        7: {'text': "Quit without Saving"}
+        5: {'text': "Displayed Follow Manga", 'func': display_manga},
+        6: {'text': "Save"},
+        7: {'text': "Save and Quit"},
+        8: {'text': "Quit without Saving"}
         }
 
 if len(config) == 0:
@@ -142,9 +143,9 @@ while True:
         if 'func' in menu[choice]:
             menu[choice]['func']()
         else:
-            if choice <= 6:
+            if choice <= 7:
                 save_config(config)
-            if choice >= 6:
+            if choice >= 7:
                 break
     except (ValueError, KeyError):
         print("Not a valid choice. Please try again.")
