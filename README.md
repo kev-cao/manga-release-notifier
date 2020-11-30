@@ -13,6 +13,7 @@ This program uses Pushbullet and its API to send push notifications, so you will
 
 From there, in the repo directory, run
 ```
+pip install -r requirements.txt
 python setup.py
 ```
 
