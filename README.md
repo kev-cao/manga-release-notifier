@@ -16,7 +16,7 @@ From there, in the repo directory, run
 python setup.py
 ```
 
-Follow the instructions there. At the moment, the program only supports the Manganelo website, but I plan on adding a bit more support to similar sites like Managakalot.
+Follow the instructions there. The program only supports manga from Manganelo or Mangakalot.
 
 That sets up the `config.json` file. Next, you will need to set up a way to repeatedly run `scraper.py`. If you're on Linux, I recommend using cron jobs. I set up a bash script like so to run the scraper:
 ```bash
