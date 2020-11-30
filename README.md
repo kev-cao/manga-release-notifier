@@ -31,7 +31,7 @@ fi
 Then, in the crontab, I have the script set to run every 2 hours, but you can change this to your liking of course ([Cron Tutorial](https://phoenixnap.com/kb/set-up-cron-job-linux)).
 ```bash
 # Manga Notifier Script Job
-* */2 * * * $SCRIPT_LOCATION
+0 */2 * * * $SCRIPT_LOCATION
 ```
 
 Alternatively, if you don't want to set up scheduled tasks, you can use a loop to stop the script from terminating. If you check `scraper.py`, you will find a comment detailing where you should insert the loop. Also make sure to import the `time` library. There, create a while loop that runs indefinitely and push everything under that line into the while loop body. Then simply add a sleep delay in seconds equal to however frequently you want the scraper to check the website.
