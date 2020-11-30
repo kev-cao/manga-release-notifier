@@ -13,6 +13,9 @@ save = load_save()
 
 logger.info("Running scraper.")
 
+# If you do not wish to use a task scheduler and want this program
+# to run indefinitely instead, start the while loop below
+# this comment. See README for more details.
 need_to_save = False
 for url in urls:
     # Convert HTML to soup.
