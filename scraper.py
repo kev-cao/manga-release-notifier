@@ -31,6 +31,7 @@ for url in urls:
         if manga not in save or save[manga] < ch.num:
             try:
                 if manga in save:
+                    logger.info(f'Sent push for {ch.manga_title}.')
                     send_push(ch)
 
                 save[manga] = ch.num
