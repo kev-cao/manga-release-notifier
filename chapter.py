@@ -1,14 +1,13 @@
 import re
 
 class Chapter:
-    """Represents the latest chapter of a manga in a soup.
+    """Represents the latest chapter of a manga in a soup, or the next chapter if provided a current chapter.
     You can access the title of the manga, the latest chapter title, the chapter number, and the link to the chapter.
     """
     def __init__(self, soup):
-        """Uses the soup to get the latest chapter."""
+        """Uses the soup to get the next chapter."""
         self.soup = soup
         self.__init_manga_title()
-        self.__init_chapter_details()
 
     def __init_manga_title(self):
         """Gets the title of the manga in the soup."""
@@ -18,23 +17,43 @@ class Chapter:
         except AttributeError as e:
             raise ValueError('Could not retrieve manga title.')
 
-    def __init_chapter_details(self):
-        """Gets the details of the latest chapter from the soup."""
+    def fetch_chapter_details(self, last_chapter):
+        """Gets the details of the next chapter from the soup."""
         try: 
-            chapter_list = self.soup.select_one('[class*=chapter-list]')
-            recent_chapter = chapter_list.a
-            chapter_label = recent_chapter['title']
-            chapter_link = recent_chapter['href']
+            chapter_list = self.soup.find_all("a", class_="chapter-name")
+            chapter = chapter_list[0]
+            last_title, last_num, last_link = self.__process_html_chapter(chapter)
 
-            # Get chapter title and number.
-            pattern = r'chapter\s*(\d*):*.*'
-            match = re.search(pattern, chapter_label, re.IGNORECASE)
-            self.title = match.group(0) if match else ''
-            self.num = int(match.group(1)) if match else -1
-            self.link = chapter_link
+            for chapter in chapter_list:
+                title, num, link = self.__process_html_chapter(chapter)
+
+                if num <= last_chapter:
+                    break
+                else:
+                    last_title = title
+                    last_num = num
+                    last_link = link
+
+            self.title = last_title
+            self.num = last_num
+            self.link = last_link
         except (AttributeError, IndexError) as e:
             print(e)
             raise ValueError('Could not retrieve chapter details.')
+
+    def __process_html_chapter(self, chapter):
+        """Extracts the details of a chapter from HTML."""
+        chapter_label = chapter['title']
+        chapter_link = chapter['href']
+
+        # Get chapter title and number.
+        pattern = r'chapter\s*(\d*):*.*'
+        match = re.search(pattern, chapter_label, re.IGNORECASE)
+        title = match.group(0) if match else ''
+        num = int(match.group(1)) if match else -1
+        link = chapter_link
+
+        return (title, num, link)
 
     def __str__(self):
         """Displays Manga title and Chapter title."""

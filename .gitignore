@@ -17,3 +17,4 @@ save.json
 
 # logs
 log.out
+*.pyc

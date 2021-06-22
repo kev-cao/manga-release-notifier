@@ -28,6 +28,7 @@ for url in urls:
 
         # Check and see if the chapter is more recent than what was last saved.
         manga = ch.manga_title.lower()
+        ch.fetch_chapter_details(save[manga])
         if manga not in save or save[manga] < ch.num:
             try:
                 if manga in save:
