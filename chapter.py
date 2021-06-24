@@ -8,6 +8,7 @@ class Chapter:
         """Uses the soup to get the next chapter."""
         self.soup = soup
         self.__init_manga_title()
+        self.__init_chapter_details()
 
     def __init_manga_title(self):
         """Gets the title of the manga in the soup."""
@@ -17,12 +18,17 @@ class Chapter:
         except AttributeError as e:
             raise ValueError('Could not retrieve manga title.')
 
+    def __init_chapter_details(self):
+        """Gets some starting chapter details."""
+        latest_chapter = self.soup.select_one('.chapter-name')
+        self.title, self.latest_num, self.link = self.__process_html_chapter(latest_chapter)
+
     def fetch_chapter_details(self, last_chapter):
         """Gets the details of the next chapter from the soup."""
+        # Ngl, this whole part is a bit ugly, but I really only want this to work and don't need more than that.
         try: 
-            chapter_list = self.soup.find_all("a", class_="chapter-name")
-            chapter = chapter_list[0]
-            last_title, last_num, last_link = self.__process_html_chapter(chapter)
+            chapter_list = self.soup.find_all('a', class_='chapter-name')
+            last_title, last_num, last_link = self.title, self.latest_num, self.link
 
             for chapter in chapter_list:
                 title, num, link = self.__process_html_chapter(chapter)

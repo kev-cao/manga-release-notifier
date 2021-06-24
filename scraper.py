@@ -28,14 +28,18 @@ for url in urls:
 
         # Check and see if the chapter is more recent than what was last saved.
         manga = ch.manga_title.lower()
+        if manga not in save:
+            save[manga] = ch.latest_num
+            need_to_save = True
+
         ch.fetch_chapter_details(save[manga])
-        if manga not in save or save[manga] < ch.num:
+        if save[manga] < ch.num:
             try:
                 if manga in save:
                     logger.info(f'Sent push for {ch.manga_title}.')
                     send_push(ch)
 
-                save[manga] = ch.num
+                save[manga] = ch.latest_num
                 need_to_save = True
             except ConnectionError as e:
                 logger.error(e)
