@@ -4,7 +4,7 @@ from chapter import Chapter
 from save import load_save, update_save
 from config import load_config
 from bs4 import BeautifulSoup
-from pushbullet import send_push
+from sms import send_notification
 
 config = load_config()
 urls = config['urls']
@@ -37,11 +37,11 @@ for url in urls:
             try:
                 if manga in save:
                     logger.info(f'Sent push for {ch.manga_title}.')
-                    send_push(ch)
+                    send_notification(ch)
 
                 save[manga] = ch.latest_num
                 need_to_save = True
-            except ConnectionError as e:
+            except Exception as e:
                 logger.error(e)
     except ValueError as e:
         logger.error(e)
