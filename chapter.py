@@ -53,10 +53,10 @@ class Chapter:
         chapter_link = chapter['href']
 
         # Get chapter title and number.
-        pattern = r'chapter\s*(\d*):*.*'
+        pattern = r'chapter\s*([\d.]*)[:\s]*'
         match = re.search(pattern, chapter_label, re.IGNORECASE)
         title = match.group(0) if match else ''
-        num = int(match.group(1)) if match else -1
+        num = float(match.group(1)) if match else -1
         link = chapter_link
 
         return (title, num, link)

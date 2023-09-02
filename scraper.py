@@ -33,16 +33,17 @@ for url in urls:
             need_to_save = True
 
         ch.fetch_chapter_details(save[manga])
-        if save[manga] < ch.num:
+        while save[manga] < ch.num:
             try:
                 if manga in save:
                     logger.info(f'Sent push for {ch.manga_title}.')
                     send_notification(ch)
 
-                save[manga] = ch.latest_num
+                save[manga] = ch.num
                 need_to_save = True
             except Exception as e:
                 logger.error(e)
+            ch.fetch_chapter_details(save[manga])
     except ValueError as e:
         logger.error(e)
 
